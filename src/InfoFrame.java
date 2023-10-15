@@ -41,6 +41,7 @@ public class InfoFrame extends JFrame{
                 private JRadioButton    singleMaritalInputRadio;
                 private JRadioButton    marriedMaritalInputRadio;
                 private JRadioButton    separatedMaritalInputRadio;
+                
     /* Action Listeners */
     private ActionListener onChange;
 
