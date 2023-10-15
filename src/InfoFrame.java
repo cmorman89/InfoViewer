@@ -52,12 +52,23 @@ public class InfoFrame extends JFrame{
             setTitle("User Information Viewer");
             setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
             setDefaultCloseOperation(EXIT_ON_CLOSE);
+        /* Action Listener */
+            onChange = new InputListener();
         /* Info Frame Contents */
             add(displayPanel(), BorderLayout.CENTER);
             add(inputPanel(), BorderLayout.SOUTH);
         /* Make Visible */
             setVisible(true);
     }
+
+    class InputListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            displayNameLabel.setText(nameInputTextField.getText());
+            displayMajorLabel.setText(majorInputComboBox.getSelectedItem().toString());
+            displayMaritalStatusLabel.setText(maritalStatusInputRadioGroup.getSelection().toString());
+        }
+    }
+
     /**
      * Construct Display Panel
      * @return JPanel to display selected information
