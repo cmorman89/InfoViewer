@@ -3,7 +3,6 @@ import javax.swing.JPanel;
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
@@ -103,7 +102,7 @@ public class InfoFrame extends JFrame{
         return majorInputPanel;
     }
     public JPanel maritalStatusInputPanel() {
-        maritalStatusInputPanel = new JPanel();
+        maritalStatusInputPanel = new JPanel(new GridLayout(1,3));
         maritalStatusInputPanel.setBorder(new TitledBorder(new EtchedBorder(), "Marital Status"));
         /* Marital Status Input Panel Contents */
 
