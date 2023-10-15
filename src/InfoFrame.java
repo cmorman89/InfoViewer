@@ -52,6 +52,7 @@ public class InfoFrame extends JFrame{
         /* Set Parameters */
             setTitle("User Information Viewer");
             setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+            setDefaultCloseOperation(EXIT_ON_CLOSE);
         /* Info Frame Contents */
             add(displayPanel(), BorderLayout.CENTER);
             add(inputPanel(), BorderLayout.SOUTH);
@@ -108,6 +109,6 @@ public class InfoFrame extends JFrame{
 
 
 
-        return majorInputPanel;
+        return maritalStatusInputPanel;
     }
 }
