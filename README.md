@@ -1,1 +1,7 @@
+Mock-Up:
+
 ![1697340831927](image/README/1697340831927.png)
+
+Current state:
+
+![1697342991343](image/README/1697342991343.png)
