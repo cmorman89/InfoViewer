@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
+import javax.swing.JToggleButton;
 /* Import GUI Borders */
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -48,7 +49,7 @@ public class InfoFrame extends JFrame{
                 private JRadioButton    singleMaritalInputRadio;
                 private JRadioButton    marriedMaritalInputRadio;
                 private JRadioButton    separatedMaritalInputRadio;
-                
+
     /* Action Listeners */
     private ActionListener onChange;
 
@@ -70,9 +71,17 @@ public class InfoFrame extends JFrame{
     /* Action Listener: Update GUI Display on Change*/
     class InputListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
-            //displayNameLabel.setText(nameInputTextField.getText());
+            /* Update Name */
+            displayNameLabel.setText(nameInputTextField.getText());
+            /* Update Major */
             displayMajorLabel.setText(majorInputComboBox.getSelectedItem().toString());
-            //displayMaritalStatusLabel.setText(maritalStatusInputRadioGroup.getSelection().toString());
+            /* Update Marital Status */
+            String maritalStatusString;
+            if      (singleMaritalInputRadio.isSelected())      { maritalStatusString = "Single"; }
+            else if (marriedMaritalInputRadio.isSelected())     { maritalStatusString = "Married"; }
+            else if (separatedMaritalInputRadio.isSelected())   { maritalStatusString = "Separated"; }
+            else                                                { maritalStatusString = " - - - "; }
+            displayMaritalStatusLabel.setText(maritalStatusString);
         }
     }
 
@@ -140,9 +149,11 @@ public class InfoFrame extends JFrame{
         nameInputPanel = new JPanel();
         nameInputPanel.setBorder(new TitledBorder(new EtchedBorder(), PANEL_TITLE));
         /* Name Input Panel Contents */
-
-
-
+        nameInputLabel = new JLabel("Your name: ");
+            nameInputPanel.add(nameInputLabel);
+        nameInputTextField = new JTextField("",20);
+            nameInputTextField.addActionListener(onChange);
+            nameInputPanel.add(nameInputTextField);
         /* Return Panel */
         return nameInputPanel;
     }
@@ -154,6 +165,7 @@ public class InfoFrame extends JFrame{
         final String PANEL_TITLE = "Major";
         /* Array of Majors */
         String[] majorArray = {
+            " - - - ",
             "Art",
             "Biology",
             "Business",
@@ -185,7 +197,20 @@ public class InfoFrame extends JFrame{
         maritalStatusInputPanel = new JPanel(new GridLayout(GRID_ROWS, GRID_COLS));
         maritalStatusInputPanel.setBorder(new TitledBorder(new EtchedBorder(), PANEL_TITLE));
         /* Marital Status Input Panel Contents */
-        maritalStatusInputRadioGroup = new ButtonGroup();
+        maritalStatusInputRadioGroup    = new ButtonGroup();
+            singleMaritalInputRadio     = new JRadioButton("Single");
+                singleMaritalInputRadio.addActionListener(onChange);
+                maritalStatusInputRadioGroup.add(singleMaritalInputRadio);
+            marriedMaritalInputRadio    = new JRadioButton("Married");
+                marriedMaritalInputRadio.addActionListener(onChange);
+                maritalStatusInputRadioGroup.add(marriedMaritalInputRadio);
+            separatedMaritalInputRadio  = new JRadioButton("Separated");
+                separatedMaritalInputRadio.addActionListener(onChange);
+                maritalStatusInputRadioGroup.add(separatedMaritalInputRadio);
+        /* Panel Layout */
+            /* Col 1 */  maritalStatusInputPanel.add(singleMaritalInputRadio);
+            /* Col 2 */  maritalStatusInputPanel.add(marriedMaritalInputRadio);
+            /* Col 3 */  maritalStatusInputPanel.add(separatedMaritalInputRadio);
         /* Return Panel */
         return maritalStatusInputPanel;
     }
