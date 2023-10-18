@@ -1,3 +1,10 @@
+/*============================================
+ * InfoFrame.java
+ * Authors: Charles M., Raihana F., Joanna G.
+ * Class: ACO 102 - ASU West - Fall 2023
+ ============================================*/
+
+
 /* Import GUI Containers */
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -7,7 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
 /* Import GUI Borders */
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -26,18 +32,18 @@ public class InfoFrame extends JFrame{
     private final int WINDOW_HEIGHT = 500;
 
     /* GUI Objects (Indented = Nested/Grouped/Contains) */
-    private JPanel          displayPanel;
-        private JPanel          displayNorthPanel;
-            private JLabel          displayTitleLabel;
-            private JPanel          displayBorderPanel;
-                private JPanel          displayInfoTitlePanel;
-                    private JLabel          displayNameTitleLabel;
-                    private JLabel          displayMajorTitleLabel;
-                    private JLabel          displayMaritalStatusTitleLabel;
-                private JPanel          displayInfoPanel;
-                    private JLabel          displayNameLabel;
-                    private JLabel          displayMajorLabel;
-                    private JLabel          displayMaritalStatusLabel;
+    private JPanel          infoDisplayPanel;
+        private JPanel          infoDisplayInnerPanel;
+            private JLabel          infoHeaderLabel;
+            private JPanel          infoColumnsPanel;
+                private JPanel          infoLabelColumnPanel;
+                    private JLabel          nameDescLabel;
+                    private JLabel          majorDescLabel;
+                    private JLabel          maritalStatusDescLabel;
+                private JPanel          infoDataColumnPanel;
+                    private JLabel          nameDataLabel;
+                    private JLabel          majorDataLabel;
+                    private JLabel          maritalStatusDataLabel;
     private JPanel          inputPanel;
         private JPanel          nameInputPanel;
             private JLabel          nameInputLabel;
@@ -72,16 +78,16 @@ public class InfoFrame extends JFrame{
     class InputListener implements ActionListener {
         public void actionPerformed(ActionEvent event) {
             /* Update Name */
-            displayNameLabel.setText(nameInputTextField.getText());
+            nameDataLabel.setText(nameInputTextField.getText());
             /* Update Major */
-            displayMajorLabel.setText(majorInputComboBox.getSelectedItem().toString());
+            majorDataLabel.setText(majorInputComboBox.getSelectedItem().toString());
             /* Update Marital Status */
             String maritalStatusString;
             if      (singleMaritalInputRadio.isSelected())      { maritalStatusString = "Single"; }
             else if (marriedMaritalInputRadio.isSelected())     { maritalStatusString = "Married"; }
             else if (separatedMaritalInputRadio.isSelected())   { maritalStatusString = "Separated"; }
             else                                                { maritalStatusString = " - - - "; }
-            displayMaritalStatusLabel.setText(maritalStatusString);
+            maritalStatusDataLabel.setText(maritalStatusString);
         }
     }
 
@@ -95,33 +101,33 @@ public class InfoFrame extends JFrame{
         final int SUBGRID_COLS  = 1;
         final String COL_GAP    = " ".repeat(4);
         /* Create Panel and SubPanels */
-        displayPanel            = new JPanel(new BorderLayout());
-        displayNorthPanel       = new JPanel(new GridLayout(GRID_ROWS, GRID_COLS));
-        displayBorderPanel      = new JPanel(new BorderLayout());
-        displayInfoTitlePanel   = new JPanel(new GridLayout(SUBGRID_ROWS, SUBGRID_COLS));
-        displayInfoPanel        = new JPanel(new GridLayout(SUBGRID_ROWS,SUBGRID_COLS));
+        infoDisplayPanel            = new JPanel(new BorderLayout());
+        infoDisplayInnerPanel       = new JPanel(new GridLayout(GRID_ROWS, GRID_COLS));
+        infoColumnsPanel            = new JPanel(new BorderLayout());
+        infoLabelColumnPanel        = new JPanel(new GridLayout(SUBGRID_ROWS, SUBGRID_COLS));
+        infoDataColumnPanel         = new JPanel(new GridLayout(SUBGRID_ROWS,SUBGRID_COLS));
         /* Display Panel Contents */
-            displayTitleLabel               = new JLabel(COL_GAP + "User Information:");
-            displayNameTitleLabel           = new JLabel(COL_GAP + "Name:" + COL_GAP);
-            displayNameLabel                = new JLabel(" - - - ");
-            displayMajorTitleLabel          = new JLabel(COL_GAP + "Major:" + COL_GAP);
-            displayMajorLabel               = new JLabel(" - - - ");
-            displayMaritalStatusTitleLabel  = new JLabel(COL_GAP + "Marital Status:" + COL_GAP);
-            displayMaritalStatusLabel       = new JLabel(" - - - ");
-        /* Panel Layout */
-            /* NORTH    */   displayPanel.add(displayNorthPanel, BorderLayout.NORTH);
-                /* Row 1 */     displayNorthPanel.add(displayTitleLabel);
-                /* Row 2 */     displayNorthPanel.add(displayBorderPanel);
-                    /* WEST     */   displayBorderPanel.add(displayInfoTitlePanel, BorderLayout.WEST);
-                        /* Row 1 */     displayInfoTitlePanel.add(displayNameTitleLabel);
-                        /* Row 2 */     displayInfoTitlePanel.add(displayMajorTitleLabel);
-                        /* Row 3 */     displayInfoTitlePanel.add(displayMaritalStatusTitleLabel);
-                    /* CENTER   */   displayBorderPanel.add(displayInfoPanel, BorderLayout.CENTER);
-                        /* Row 1 */     displayInfoPanel.add(displayNameLabel);
-                        /* Row 2 */     displayInfoPanel.add(displayMajorLabel);
-                        /* Row 3 */     displayInfoPanel.add(displayMaritalStatusLabel);
+            infoHeaderLabel         = new JLabel(COL_GAP + "User Information:");
+            nameDescLabel           = new JLabel(COL_GAP + "Name:" + COL_GAP);
+            nameDataLabel           = new JLabel(" - - - ");
+            majorDescLabel          = new JLabel(COL_GAP + "Major:" + COL_GAP);
+            majorDataLabel          = new JLabel(" - - - ");
+            maritalStatusDescLabel  = new JLabel(COL_GAP + "Marital Status:" + COL_GAP);
+            maritalStatusDataLabel  = new JLabel(" - - - ");
+        /* Panel Layout - Note: Nested panels to keep West/Center elements from overtaking whole area */
+            /* NORTH    */   infoDisplayPanel.add(infoDisplayInnerPanel, BorderLayout.NORTH);
+                /* Row 1 */     infoDisplayInnerPanel.add(infoHeaderLabel);
+                /* Row 2 */     infoDisplayInnerPanel.add(infoColumnsPanel);
+                    /* WEST     */   infoColumnsPanel.add(infoLabelColumnPanel, BorderLayout.WEST);
+                        /* Row 1 */     infoLabelColumnPanel.add(nameDescLabel);
+                        /* Row 2 */     infoLabelColumnPanel.add(majorDescLabel);
+                        /* Row 3 */     infoLabelColumnPanel.add(maritalStatusDescLabel);
+                    /* CENTER   */   infoColumnsPanel.add(infoDataColumnPanel, BorderLayout.CENTER);
+                        /* Row 1 */     infoDataColumnPanel.add(nameDataLabel);
+                        /* Row 2 */     infoDataColumnPanel.add(majorDataLabel);
+                        /* Row 3 */     infoDataColumnPanel.add(maritalStatusDataLabel);
 
-        return displayPanel;
+        return infoDisplayPanel;
     }
 
     /* Create Input Panel
@@ -173,7 +179,8 @@ public class InfoFrame extends JFrame{
             "Communication",
             "Computer Science",
             "Mathematics",
-            "Psychology"
+            "Psychology",
+            "Social Studies"
         };
         /* Create Panel */
         majorInputPanel = new JPanel();
